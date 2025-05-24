@@ -1,0 +1,8 @@
+/* styles.css */
+
+.navbar, .navbar-nav > .nav-item > .nav-link {
+  background-color: #181818 !important;   /* Color de fondo de la barra */
+  color: white !important;                /* Color del texto de las pestañas */
+}
+
+/* Si tu tema usa otra clase para la barra: prueba con .navbar-default o .navbar-light */

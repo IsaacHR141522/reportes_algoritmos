@@ -1,0 +1,32 @@
+---
+title: "Notas de Cambios"
+format: html
+---
+
+## 📝 Lista de Cambios por Reporte
+
+A continuación se detallan los cambios realizados en cada uno de los reportes:
+
+### ✅ Reporte 3 – Algoritmos de Ordenamiento
+- Se mejoró la documentación en el análisis de los algoritmos.
+- Se incluyeron explicaciones más claras sobre las diferencias entre BubbleSort, MergeSort, QuickSort y SkipList.
+- Se añadió justificación teórica de por qué BubbleSort no es adaptativo.
+- Se retiró el uso innecesario del "ínfimo" en SkipList.
+- Se incorporó una sección con comentarios más precisos sobre los experimentos y sus resultados.
+
+### ✅ Reporte 4 – Algoritmos de Búsqueda e Intersección
+- Se ampliaron las explicaciones sobre los algoritmos Baeza-Yates (BY) y Barbay & Kenyon (BK).
+- Se añadieron referencias bibliográficas formales (Baeza-Yates, 2004).
+- Se mejoraron los comentarios en las celdas de código, destacando los objetivos de cada función.
+- Se incorporó un análisis más detallado de los resultados por conjunto (A, B y C), incluyendo recomendaciones.
+
+📌 **Nota importante:** En ninguno de los reportes anteriores se modificó el código fuente.  
+Las mejoras consisten exclusivamente en **documentación, análisis y presentación de resultados, según los comentarios realizados**.
+
+---
+
+### ⚠️ Sin cambios:
+
+- **Reporte 1** – Introducción y configuración inicial  
+- **Reporte 2** – Análisis exploratorio  
+- **Reporte 5** – (En revisión actual) No presenta observaciones que requieran corrección

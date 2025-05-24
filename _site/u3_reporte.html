@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Experimentos y análisis de algoritmos de ordenamiento – Reportes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Reportes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./u1_reporte.html"> 
+<span class="menu-text">Unidad 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./u2_reporte.html"> 
+<span class="menu-text">Unidad 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./u3_reporte.html" aria-current="page"> 
+<span class="menu-text">Unidad 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./u4_reporte.html"> 
+<span class="menu-text">Unidad 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./u5_reporte.html"> 
+<span class="menu-text">Unidad 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./cambios.html"> 
+<span class="menu-text">Cambios</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./referencias.html"> 
+<span class="menu-text">Referencias</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#alumno-isaac-hernández-ramírez" id="toc-alumno-isaac-hernández-ramírez" class="nav-link active" data-scroll-target="#alumno-isaac-hernández-ramírez"><strong>Alumno: Isaac Hernández Ramírez</strong></a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción">Introducción:</a>
+  <ul class="collapse">
+  <li><a href="#importación-de-librerías" id="toc-importación-de-librerías" class="nav-link" data-scroll-target="#importación-de-librerías">✅ Importación de librerías</a></li>
+  <li><a href="#implementación-de-los-algoritmos-de-ordenamiento" id="toc-implementación-de-los-algoritmos-de-ordenamiento" class="nav-link" data-scroll-target="#implementación-de-los-algoritmos-de-ordenamiento">✅ Implementación de los algoritmos de ordenamiento</a></li>
+  <li><a href="#implementación-de-skiplist" id="toc-implementación-de-skiplist" class="nav-link" data-scroll-target="#implementación-de-skiplist">✅Implementación de SkipList</a></li>
+  <li><a href="#funciones-y-visualización" id="toc-funciones-y-visualización" class="nav-link" data-scroll-target="#funciones-y-visualización">✅ Funciones y visualización</a></li>
+  <li><a href="#carga-de-datos-y-ejecución-de-funciones" id="toc-carga-de-datos-y-ejecución-de-funciones" class="nav-link" data-scroll-target="#carga-de-datos-y-ejecución-de-funciones">✅ Carga de datos y ejecución de funciones</a></li>
+  <li><a href="#análisis-de-los-resultados" id="toc-análisis-de-los-resultados" class="nav-link" data-scroll-target="#análisis-de-los-resultados">✅ Análisis de los resultados</a>
+  <ul class="collapse">
+  <li><a href="#comparación-de-número-de-comparaciones" id="toc-comparación-de-número-de-comparaciones" class="nav-link" data-scroll-target="#comparación-de-número-de-comparaciones">Comparación de número de comparaciones</a></li>
+  <li><a href="#comparación-de-tiempos-de-ejecución" id="toc-comparación-de-tiempos-de-ejecución" class="nav-link" data-scroll-target="#comparación-de-tiempos-de-ejecución">✅ Comparación de tiempos de ejecución</a></li>
+  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones">✅ Conclusiones</a></li>
+  </ul></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📚 Referencias</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><strong>Experimentos y análisis de algoritmos de ordenamiento</strong></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="alumno-isaac-hernández-ramírez" class="level2">
+<h2 class="anchored" data-anchor-id="alumno-isaac-hernández-ramírez"><strong>Alumno: Isaac Hernández Ramírez</strong></h2>
+</section>
+<section id="introducción" class="level1">
+<h1>Introducción:</h1>
+<p>El análisis de los algoritmos de ordenamiento es fundamental en la informática y en nuestro campo de estudio actual (ciencia de datos), ya que su eficiencia afecta directamente el desempeño de diversas aplicaciones. En este notebook implementamos y hacemos comparacion del rendimiento de diferentes algoritmos de ordenamiento:</p>
+<ul>
+<li><p>Heapsort</p></li>
+<li><p>Mergesort</p></li>
+<li><p>Quicksort</p></li>
+<li><p>Bubblesort</p></li>
+<li><p>SkipList (estructura de datos probabilística)</p></li>
+</ul>
+<p>Usaremos conjuntos de datos con diferentes niveles de desorden para medir el número de comparaciones y el tiempo de ejecución.</p>
+<p>El estudio de algoritmos eficientes de ordenamiento ha sido un tema recurrente en la últimas prácticas. Pugh (1990) introdujo las Skip Lists como una alternativa probabilística a los árboles balanceados, ofreciendo una complejidad promedio de O(n log n). Cook y Kim (1980) analizaron los mejores algoritmos para listas casi ordenadas, lo cual es relevante al evaluar el rendimiento de diferentes estrategias de ordenamiento según el grado de desorden. Estivill-Castro y Wood (1992) realizaron un amplio estudio sobre algoritmos adaptativos de ordenamiento, lo que permite entender cuáles estrategias funcionan mejor en distintos escenarios.</p>
+<section id="importación-de-librerías" class="level2">
+<h2 class="anchored" data-anchor-id="importación-de-librerías">✅ Importación de librerías</h2>
+<div id="cell-4" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> copy</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="implementación-de-los-algoritmos-de-ordenamiento" class="level2">
+<h2 class="anchored" data-anchor-id="implementación-de-los-algoritmos-de-ordenamiento">✅ Implementación de los algoritmos de ordenamiento</h2>
+<ul>
+<li><p>En esta sección se implementan los algoritmos clásicos de ordenamiento: BubbleSort, QuickSort, MergeSort y HeapSort.</p></li>
+<li><p>Cada uno se define como un método estático dentro de una clase contenedora (<code>SortingAlgorithms</code>) para mantener la organización modular.</p></li>
+<li><p>Además de ordenar, cada algoritmo cuenta las comparaciones realizadas, lo que permite evaluar su eficiencia más allá del tiempo de ejecución.</p></li>
+<li><p>Las implementaciones son estándar, pero se adaptan para registrar estadísticas útiles para el análisis experimental posterior.</p></li>
+</ul>
+<div id="cell-7" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SortingAlgorithms:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Ordenamiento burbuja</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> bubblesort(arr):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        comparaciones <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Aquí está un contador de las comparaciones</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> arr.copy()  <span class="co"># Trabajar en una copia para evitar modificar los datos originales</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n <span class="op">-</span> i <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                comparaciones <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> arr[j] <span class="op">&gt;</span> arr[j <span class="op">+</span> <span class="dv">1</span>]:  <span class="co"># Comparar elementos adyacentes</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                    arr[j], arr[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> arr[j <span class="op">+</span> <span class="dv">1</span>], arr[j]  <span class="co"># Intercambiar si están en el orden incorrecto</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> arr, comparaciones</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ordenamientos quick</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> quicksort(arr):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        comparaciones <span class="op">=</span> [<span class="dv">0</span>]  <span class="co"># Usamos lista para rastrear comparaciones</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> arr.copy()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> _partition(arr, low, high):</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="co">#pivote = arr[high] ......... Cambiar</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            pivot_index <span class="op">=</span> random.randint(low, high) <span class="co"># Elegimos un pivote aleatorio</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            arr[high], arr[pivot_index] <span class="op">=</span> arr[pivot_index], arr[high]  </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            pivote <span class="op">=</span> arr[high] <span class="co"># Seleccionamos el pivote</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> low <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            comps <span class="op">=</span> <span class="dv">0</span>  <span class="co"># contador</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(low, high):</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                comps <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> arr[j] <span class="op">&lt;=</span> pivote:</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                    arr[i], arr[j] <span class="op">=</span> arr[j], arr[i]  <span class="co"># intercambiamos los elementos</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            arr[i <span class="op">+</span> <span class="dv">1</span>], arr[high] <span class="op">=</span> arr[high], arr[i <span class="op">+</span> <span class="dv">1</span>]  <span class="co"># ponemos el pivote en la posición correcta</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i <span class="op">+</span> <span class="dv">1</span>, comps</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> _quicksort(arr, low, high):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> low <span class="op">&lt;</span> high:</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                pivot_idx, comps <span class="op">=</span> _partition(arr, low, high)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                comparaciones[<span class="dv">0</span>] <span class="op">+=</span> comps</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                _quicksort(arr, low, pivot_idx <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># se ordena la sublista izquierda</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                _quicksort(arr, pivot_idx <span class="op">+</span> <span class="dv">1</span>, high)  <span class="co"># se ordena la sublista derecha</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        _quicksort(arr, <span class="dv">0</span>, <span class="bu">len</span>(arr) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> arr, comparaciones[<span class="dv">0</span>]</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Ordenamientos merge</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> mergesort(arr):</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        comparaciones <span class="op">=</span> [<span class="dv">0</span>]</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> arr.copy()</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> _merge(left, right):</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            resultado <span class="op">=</span> []</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(left) <span class="kw">and</span> j <span class="op">&lt;</span> <span class="bu">len</span>(right):</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>                comparaciones[<span class="dv">0</span>] <span class="op">+=</span> <span class="dv">1</span>  <span class="co"># incrementamos el contador de comparaciones</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> left[i] <span class="op">&lt;=</span> right[j]:</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>                    resultado.append(left[i])</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>                    resultado.append(right[j])</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>                    j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>            resultado.extend(left[i:])  <span class="co"># ponemos los elementos restantes de la izquierda</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>            resultado.extend(right[j:])  <span class="co"># ponemos los elementos restantes de la derecha</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> resultado</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> _mergesort(arr):</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(arr) <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> arr  <span class="co"># si el array tiene un solo elemento, ya está ordenado</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>            mid <span class="op">=</span> <span class="bu">len</span>(arr) <span class="op">//</span> <span class="dv">2</span>  <span class="co"># encontramos el punto medio del array</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> _mergesort(arr[:mid])  <span class="co"># ordenamos la mitad izquierda</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> _mergesort(arr[mid:])  <span class="co"># ordenamos la mitad derecha</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> _merge(left, right)  <span class="co"># Combinar las dos mitades ordenadas</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>        sorted_arr <span class="op">=</span> _mergesort(arr)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> sorted_arr, comparaciones[<span class="dv">0</span>]</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamientos heap</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> heapsort(arr):</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>        comparaciones <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> arr.copy()</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> _heapify(arr, n, i):</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>            mayor <span class="op">=</span> i  <span class="co"># inicializamoe le valor mayor como raíz</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>            izquierda <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> i <span class="op">+</span> <span class="dv">1</span>  <span class="co"># inicio izquierdo</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>            derecha <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> i <span class="op">+</span> <span class="dv">2</span>  <span class="co"># inicio derecho</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>            comps <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> izquierda <span class="op">&lt;</span> n:</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>                comps <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> arr[izquierda] <span class="op">&gt;</span> arr[mayor]:</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>                    mayor <span class="op">=</span> izquierda</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> derecha <span class="op">&lt;</span> n:</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>                comps <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> arr[derecha] <span class="op">&gt;</span> arr[mayor]:</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>                    mayor <span class="op">=</span> derecha</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> mayor <span class="op">!=</span> i:</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>                arr[i], arr[mayor] <span class="op">=</span> arr[mayor], arr[i]</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>                comps_more, _ <span class="op">=</span> _heapify(arr, n, mayor)</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>                comps <span class="op">+=</span> comps_more</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> comps, arr</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Construir el heap máximo</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">//</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>            comps, _ <span class="op">=</span> _heapify(arr, n, i)</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>            comparaciones <span class="op">+=</span> comps</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extraer elementos uno por uno</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>            arr[<span class="dv">0</span>], arr[i] <span class="op">=</span> arr[i], arr[<span class="dv">0</span>]</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>            comps, _ <span class="op">=</span> _heapify(arr, i, <span class="dv">0</span>)</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>            comparaciones <span class="op">+=</span> comps</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> arr, comparaciones</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Nota:</strong><br>
+* El algoritmo Bubble Sort, en su forma básica como se implementa aquí, <strong>no es adaptativo</strong>, ya que siempre recorre todos los pares posibles incluso si la lista está parcialmente ordenada. Esto significa que realiza un número similar de comparaciones en todos los casos, manteniendo su complejidad O(n²). Algoritmos adaptativos ajustan su comportamiento según el grado de ordenamiento inicial, lo cual no sucede en este caso.</p>
+<ul>
+<li><p>La implementación estándar de Merge Sort utiliza <strong>memoria adicional O(n)</strong> para crear sublistas <code>left</code>, <code>right</code> y el array <code>resultado</code>. Aunque esta estrategia es eficiente en comparaciones y tiene una complejidad temporal de O(n log n), el uso de espacio adicional puede afectar el rendimiento en aplicaciones con grandes volúmenes de datos o restricciones de memoria.<br>
+Existen versiones “in-place” de Merge Sort que reducen este uso de memoria, pero son más complejas y no siempre prácticas.</p></li>
+<li><p>Se actualizó la selección del pivote en QuickSort a una estrategia <strong>aleatoria</strong>, en lugar de usar siempre el último elemento. Esta mejora evita peores casos cuando el arreglo está ya ordenado o tiene patrones desfavorables, reduciendo la probabilidad de que el algoritmo degrade a O(n²). Esta modificación hace que el algoritmo sea más robusto y consistente en rendimiento.</p></li>
+</ul>
+</section>
+<section id="implementación-de-skiplist" class="level2">
+<h2 class="anchored" data-anchor-id="implementación-de-skiplist">✅Implementación de SkipList</h2>
+<ul>
+<li>Aquí se implementa la estructura <code>SkipList</code>, una alternativa probabilística a las estructuras tradicionales de ordenamiento.<br>
+</li>
+<li>Su principio de funcionamiento se basa en listas enlazadas con niveles que permiten realizar búsquedas y ordenamientos con complejidad promedio O(n log n).<br>
+</li>
+<li>La clase incluye un método <code>sort()</code> que inserta los elementos en la estructura y devuelve la lista ordenada, además de contar las comparaciones realizadas.<br>
+</li>
+<li>Se emplea un nodo <code>header</code> con clave <code>-∞</code> como punto de partida, lo cual es una convención interna que no afecta los datos reales.<br>
+</li>
+<li>Esta estructura permite explorar el rendimiento de métodos menos convencionales frente a algoritmos deterministas.</li>
+</ul>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, key, level):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.key <span class="op">=</span> key  <span class="co"># nodo</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.forward <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (level <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SkipList:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, max_level<span class="op">=</span><span class="dv">16</span>, p<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.max_level <span class="op">=</span> max_level</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.p <span class="op">=</span> p</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.level <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Nivel actual de la lista</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.header <span class="op">=</span> Node(<span class="op">-</span><span class="bu">float</span>(<span class="st">'inf'</span>), max_level)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.comparisons <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Contador de comparaciones</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> random_level(<span class="va">self</span>):</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        lvl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> random.random() <span class="op">&lt;</span> <span class="va">self</span>.p <span class="kw">and</span> lvl <span class="op">&lt;</span> <span class="va">self</span>.max_level:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            lvl <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lvl</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> insert(<span class="va">self</span>, key):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        update <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (<span class="va">self</span>.max_level <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># arreglo para actualizar el puntero</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> current.forward[i] <span class="kw">and</span> current.forward[i].key <span class="op">&lt;</span> key:</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.comparisons <span class="op">+=</span> <span class="dv">1</span>  <span class="co"># incrementamos el contador de comparaciones</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                current <span class="op">=</span> current.forward[i]</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            update[i] <span class="op">=</span> current</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> current.forward[<span class="dv">0</span>]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current <span class="kw">and</span> current.key <span class="op">==</span> key:</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.comparisons <span class="op">+=</span> <span class="dv">1</span>  <span class="co"># incrementamos el contador de comparaciones</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        rlevel <span class="op">=</span> <span class="va">self</span>.random_level()</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rlevel <span class="op">&gt;</span> <span class="va">self</span>.level:</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level <span class="op">+</span> <span class="dv">1</span>, rlevel <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>                update[i] <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.level <span class="op">=</span> rlevel</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        new_node <span class="op">=</span> Node(key, rlevel)  <span class="co"># creamos un nuevo nodo</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(rlevel <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>            new_node.forward[i] <span class="op">=</span> update[i].forward[i]</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>            update[i].forward[i] <span class="op">=</span> new_node</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> display_list(<span class="va">self</span>):</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> []</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> <span class="va">self</span>.header.forward[<span class="dv">0</span>]</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> node:</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>            result.append(node.key)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            node <span class="op">=</span> node.forward[<span class="dv">0</span>]</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sort(<span class="va">self</span>, arr):</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.comparisons <span class="op">=</span> <span class="dv">0</span>  <span class="co"># reiniciamos el contador</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> arr.copy()  <span class="co"># copia de datos</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> item <span class="kw">in</span> arr:</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.insert(item)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.display_list(), <span class="va">self</span>.comparisons  <span class="co"># devolvemos la lista ordenada y el número de comparaciones</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Nota sobre el “ínfimo” en SkipList:</strong><br>
+En versiones anteriores de este reporte usaba un valor artificial al que llamaba “ínfimo”, lo cual no es necesario.</p>
+<p>En esta versión, la implementación de <code>SkipList</code> <strong>ya no utiliza ningún valor especial adicional</strong> para inicializar o comparar.<br>
+El único valor “especial” presente es <code>-float('inf')</code>, que se usa <strong>solo</strong> dentro del nodo <code>header</code> para representar el inicio de la lista.<br>
+Este uso es una práctica común en estructuras como listas enlazadas o árboles, y <strong>no interfiere con los datos reales ni con el modelo de comparación</strong>.</p>
+<p>De este modo, se corrige correctamente el uso innecesario del “ínfimo” mencionado en la retroalimentación.</p>
+</section>
+<section id="funciones-y-visualización" class="level2">
+<h2 class="anchored" data-anchor-id="funciones-y-visualización">✅ Funciones y visualización</h2>
+<ul>
+<li>En esta función se automatiza la evaluación de los algoritmos de ordenamiento.<br>
+</li>
+<li>Se procesan múltiples archivos con listas de datos y, para cada uno, se ejecutan los algoritmos definidos, midiendo el número de comparaciones y el tiempo de ejecución.<br>
+</li>
+<li>Los resultados se almacenan y visualizan en gráficos comparativos para facilitar el análisis del rendimiento de cada método.</li>
+</ul>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Funcion de llamada a los estaticos</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sort_algorithms(data_dict):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    algorithms <span class="op">=</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'BubbleSort'</span>: SortingAlgorithms.bubblesort,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'QuickSort'</span>: SortingAlgorithms.quicksort,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'MergeSort'</span>: SortingAlgorithms.mergesort,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'HeapSort'</span>: SortingAlgorithms.heapsort,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'SkipList'</span>: <span class="kw">lambda</span> arr: SkipList().sort(arr)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Archivo'</span>: [],</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Algoritmo'</span>: [],</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Comparaciones'</span>: [],</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Tiempos'</span>: []</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> file_name, data <span class="kw">in</span> data_dict.items():</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Procesamos el archivo </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extraer la lista de la estructura del diccionario</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(data, <span class="bu">dict</span>):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Obtener la primera clave en el diccionario (debería ser "reunion" o similar)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(data) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                first_key <span class="op">=</span> <span class="bu">list</span>(data.keys())[<span class="dv">0</span>]</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">isinstance</span>(data[first_key], <span class="bu">list</span>):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>                    data_to_sort <span class="op">=</span> data[first_key]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="ss">f"  encontramos error '</span><span class="sc">{</span>first_key<span class="sc">}</span><span class="ss">' con </span><span class="sc">{</span><span class="bu">len</span>(data_to_sort)<span class="sc">}</span><span class="ss"> elementos"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="ss">f"  no corre </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">: valor por debajor de la clave '</span><span class="sc">{</span>first_key<span class="sc">}</span><span class="ss">' no es una lista"</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">continue</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"  no corre </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">: diccionario vacío"</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="bu">isinstance</span>(data, <span class="bu">list</span>):</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>            data_to_sort <span class="op">=</span> data</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  no corre </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">: dato que no se soporta </span><span class="sc">{</span><span class="bu">type</span>(data)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> algo_name, algo_func <span class="kw">in</span> algorithms.items():</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  Corriendo </span><span class="sc">{</span>algo_name<span class="sc">}</span><span class="ss">..."</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Medir tiempo y comparaciones</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>            start_time <span class="op">=</span> time.time()</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            _, comparisons <span class="op">=</span> algo_func(data_to_sort)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>            elapsed_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Almacenar resultados</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>            short_file_name <span class="op">=</span> file_name.split(<span class="st">'p='</span>)[<span class="op">-</span><span class="dv">1</span>].split(<span class="st">'.'</span>)[<span class="dv">0</span>]  <span class="co"># Extraer la parte relevante del nombre del archivo</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>            results[<span class="st">'Archivo'</span>].append(short_file_name)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>            results[<span class="st">'Algoritmo'</span>].append(algo_name)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>            results[<span class="st">'Comparaciones'</span>].append(comparisons)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            results[<span class="st">'Tiempos'</span>].append(elapsed_time)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>comparisons<span class="sc">}</span><span class="ss"> comparisons, </span><span class="sc">{</span>elapsed_time<span class="sc">:.6f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> pd.DataFrame(results)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generar un gráfico de barras para comparar los tiempos</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    df_time <span class="op">=</span> df_results.pivot(index<span class="op">=</span><span class="st">'Archivo'</span>, columns<span class="op">=</span><span class="st">'Algoritmo'</span>, values<span class="op">=</span><span class="st">'Tiempos'</span>)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    df_time.plot(kind<span class="op">=</span><span class="st">'bar'</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Archivo"</span>)</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Tiempo (segundos)"</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Algoritmos de Ordenamiento - Tiempo"</span>)</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    plt.legend(title<span class="op">=</span><span class="st">"Algoritmo"</span>)</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generar un gráfico de barras para comparar el número de operaciones</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    df_comparisons <span class="op">=</span> df_results.pivot(index<span class="op">=</span><span class="st">'Archivo'</span>, columns<span class="op">=</span><span class="st">'Algoritmo'</span>, values<span class="op">=</span><span class="st">'Comparaciones'</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    df_comparisons.plot(kind<span class="op">=</span><span class="st">'bar'</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Archivo"</span>)</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Número de comparaciones"</span>)</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Algoritmos de Ordenamiento - Comparaciones"</span>)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    plt.legend(title<span class="op">=</span><span class="st">"Algoritmo"</span>)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="carga-de-datos-y-ejecución-de-funciones" class="level2">
+<h2 class="anchored" data-anchor-id="carga-de-datos-y-ejecución-de-funciones">✅ Carga de datos y ejecución de funciones</h2>
+<div id="cell-17" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> leer_archivos_json_desde_zip(zip_path):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    datos <span class="op">=</span> {}  <span class="co"># Diccionario para almacenar los datos de cada archivo JSON</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(zip_path, <span class="st">'r'</span>) <span class="im">as</span> archivo_zip:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> nombre_archivo <span class="kw">in</span> archivo_zip.namelist():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> nombre_archivo.endswith(<span class="st">'.json'</span>):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="cf">with</span> archivo_zip.<span class="bu">open</span>(nombre_archivo) <span class="im">as</span> archivo_json:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                    datos[nombre_archivo] <span class="op">=</span> json.load(archivo_json)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-18" class="cell" data-outputid="185b58a8-ce84-4db4-c355-cb160fb9f082">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar los datos</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>zip_path <span class="op">=</span> <span class="st">"listas-posteo-con-perturbaciones.zip"</span>  <span class="co"># Asegúrate de que el archivo ZIP está en el mismo directorio que este notebook</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>datos_json <span class="op">=</span> leer_archivos_json_desde_zip(zip_path)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Archivos JSON cargados: </span><span class="sc">{</span><span class="bu">len</span>(datos_json)<span class="sc">}</span><span class="ss"> archivos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Archivos JSON cargados: 6 archivos</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell" data-outputid="9c2ab718-c6f8-4f3b-c3b3-d2dd2f294b3e">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutamos la funcion</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Iniciandode algoritmos de ordenamiento..."</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>results_df <span class="op">=</span> sort_algorithms(datos_json)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Iniciando benchmark de algoritmos de ordenamiento...
+Procesamos el archivo listas-posteo-con-perturbaciones-p=016.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.404151 seconds
+  Corriendo QuickSort...
+    830673 comparisons, 0.081106 seconds
+  Corriendo MergeSort...
+    22813 comparisons, 0.008000 seconds
+  Corriendo HeapSort...
+    64787 comparisons, 0.010510 seconds
+  Corriendo SkipList...
+    35753 comparisons, 0.040640 seconds
+Procesamos el archivo listas-posteo-con-perturbaciones-p=032.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.339089 seconds
+  Corriendo QuickSort...
+    867552 comparisons, 0.095062 seconds
+  Corriendo MergeSort...
+    23799 comparisons, 0.008690 seconds
+  Corriendo HeapSort...
+    64715 comparisons, 0.010527 seconds
+  Corriendo SkipList...
+    32790 comparisons, 0.010010 seconds
+Procesamos el archivo listas-posteo-con-perturbaciones-p=064.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.390928 seconds
+  Corriendo QuickSort...
+    185760 comparisons, 0.017555 seconds
+  Corriendo MergeSort...
+    25934 comparisons, 0.009044 seconds
+  Corriendo HeapSort...
+    64654 comparisons, 0.011996 seconds
+  Corriendo SkipList...
+    29139 comparisons, 0.011711 seconds
+Procesamos el archivo listas-posteo-con-perturbaciones-p=128.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.398614 seconds
+  Corriendo QuickSort...
+    227177 comparisons, 0.023685 seconds
+  Corriendo MergeSort...
+    27996 comparisons, 0.013554 seconds
+  Corriendo HeapSort...
+    64536 comparisons, 0.012040 seconds
+  Corriendo SkipList...
+    29902 comparisons, 0.022587 seconds
+Procesamos el archivo listas-posteo-con-perturbaciones-p=256.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.432929 seconds
+  Corriendo QuickSort...
+    111610 comparisons, 0.008595 seconds
+  Corriendo MergeSort...
+    29032 comparisons, 0.007000 seconds
+  Corriendo HeapSort...
+    64315 comparisons, 0.010526 seconds
+  Corriendo SkipList...
+    30551 comparisons, 0.009514 seconds
+Procesamos el archivo listas-posteo-con-perturbaciones-p=512.json
+  encontramos error 'reunion' con 3080 elementos
+  Corriendo BubbleSort...
+    4741660 comparisons, 0.391433 seconds
+  Corriendo QuickSort...
+    60118 comparisons, 0.006521 seconds
+  Corriendo MergeSort...
+    30263 comparisons, 0.008010 seconds
+  Corriendo HeapSort...
+    63936 comparisons, 0.010008 seconds
+  Corriendo SkipList...
+    31721 comparisons, 0.009139 seconds</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="u3_reporte_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="u3_reporte_files/figure-html/cell-8-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Gráfico 1: Tiempo de ejecución
+<ul>
+<li><p>BubbleSort domina visualmente en todos los casos como el algoritmo más lento. Su complejidad O(n²) lo vuelve ineficiente incluso con listas de tamaño moderado (ej. ~0.4s frente a &lt;0.02s de otros).</p></li>
+<li><p>QuickSort es significativamente más rápido que BubbleSort, pero su tiempo disminuye conforme disminuye el desorden (probablemente porque elegiste pivote aleatorio o por patrones de los datos).</p></li>
+<li><p>MergeSort, HeapSort y SkipList muestran tiempos de ejecución muy bajos y consistentes entre archivos, lo cual indica su estabilidad y buen rendimiento para listas medianas (~3,000 elementos).</p></li>
+<li><p>SkipList, aunque más rápido que Bubble en órdenes de magnitud, es más lento que Heap y Merge, lo cual es esperable por su naturaleza probabilística y mayor sobrecarga de punteros.</p></li>
+<li><p>Los algoritmos O(n log n) (MergeSort, HeapSort, QuickSort, SkipList) son mucho más eficientes. SkipList es competitivo, pero con tiempos ligeramente mayores debido a su estructura.</p></li>
+</ul></li>
+<li>Gráfico 2: Número de Comparaciones
+<ul>
+<li><p>BubbleSort nuevamente sobresale negativamente: realiza más de 4.7 millones de comparaciones por archivo, sin importar el nivel de desorden, lo que confirma su falta de adaptividad.</p></li>
+<li><p>QuickSort empieza con muchas comparaciones (casos con p=016 y p=032), pero disminuye drásticamente a medida que el desorden disminuye (p=512), mostrando mejor adaptabilidad con la estrategia de pivote aleatorio.</p></li>
+<li><p>MergeSort, HeapSort y SkipList mantienen un número de comparaciones mucho más bajo y estable. Merge y Heap están por debajo de las 70,000 comparaciones en todos los casos.</p></li>
+<li><p>SkipList, aunque eficiente, tiene variabilidad mayor a HeapSort y MergeSort, lo que sugiere una mayor sensibilidad al orden de entrada (por su naturaleza probabilística).</p></li>
+<li><p>En términos de comparaciones, BubbleSort es el peor, QuickSort mejora gracias a pivote aleatorio, y SkipList se comporta bien aunque con más variabilidad que MergeSort y HeapSort.</p></li>
+</ul></li>
+</ul>
+<div id="cell-22" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar tablas pivote</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pivot_comp <span class="op">=</span> results_df.pivot(index<span class="op">=</span><span class="st">'Archivo'</span>, columns<span class="op">=</span><span class="st">'Algoritmo'</span>, values<span class="op">=</span><span class="st">'Comparaciones'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pivot_time <span class="op">=</span> results_df.pivot(index<span class="op">=</span><span class="st">'Archivo'</span>, columns<span class="op">=</span><span class="st">'Algoritmo'</span>, values<span class="op">=</span><span class="st">'Tiempos'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-23" class="cell" data-outputid="3a6c9dc9-ccb0-4ff1-f5b6-33053c3f1f59">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar tablas de resumen</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resumen de comparaciones:"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>display(pivot_comp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Resumen de comparaciones:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Algoritmo</th>
+<th data-quarto-table-cell-role="th">BubbleSort</th>
+<th data-quarto-table-cell-role="th">HeapSort</th>
+<th data-quarto-table-cell-role="th">MergeSort</th>
+<th data-quarto-table-cell-role="th">QuickSort</th>
+<th data-quarto-table-cell-role="th">SkipList</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Archivo</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">016</td>
+<td>4741660</td>
+<td>64787</td>
+<td>22813</td>
+<td>830673</td>
+<td>35753</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">032</td>
+<td>4741660</td>
+<td>64715</td>
+<td>23799</td>
+<td>867552</td>
+<td>32790</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">064</td>
+<td>4741660</td>
+<td>64654</td>
+<td>25934</td>
+<td>185760</td>
+<td>29139</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">128</td>
+<td>4741660</td>
+<td>64536</td>
+<td>27996</td>
+<td>227177</td>
+<td>29902</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">256</td>
+<td>4741660</td>
+<td>64315</td>
+<td>29032</td>
+<td>111610</td>
+<td>30551</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">512</td>
+<td>4741660</td>
+<td>63936</td>
+<td>30263</td>
+<td>60118</td>
+<td>31721</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-24" class="cell" data-outputid="4b7b30e9-daa5-42f3-ed01-276ff9502824">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resumen de tiempos de ejecución (segundos):"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>display(pivot_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Resumen de tiempos de ejecución (segundos):</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Algoritmo</th>
+<th data-quarto-table-cell-role="th">BubbleSort</th>
+<th data-quarto-table-cell-role="th">HeapSort</th>
+<th data-quarto-table-cell-role="th">MergeSort</th>
+<th data-quarto-table-cell-role="th">QuickSort</th>
+<th data-quarto-table-cell-role="th">SkipList</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Archivo</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">016</td>
+<td>0.404151</td>
+<td>0.010510</td>
+<td>0.008000</td>
+<td>0.081106</td>
+<td>0.040640</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">032</td>
+<td>0.339089</td>
+<td>0.010527</td>
+<td>0.008690</td>
+<td>0.095062</td>
+<td>0.010010</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">064</td>
+<td>0.390928</td>
+<td>0.011996</td>
+<td>0.009044</td>
+<td>0.017555</td>
+<td>0.011711</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">128</td>
+<td>0.398614</td>
+<td>0.012040</td>
+<td>0.013554</td>
+<td>0.023685</td>
+<td>0.022587</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">256</td>
+<td>0.432929</td>
+<td>0.010526</td>
+<td>0.007000</td>
+<td>0.008595</td>
+<td>0.009514</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">512</td>
+<td>0.391433</td>
+<td>0.010008</td>
+<td>0.008010</td>
+<td>0.006521</td>
+<td>0.009139</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-25" class="cell" data-outputid="fd829516-1902-4243-c713-aa1ba32de6da">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar resultados en CSV</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>results_df.to_csv(<span class="st">'resultados_ordenamiento.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resultados guardados en 'resultados_ordenamiento.csv'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Resultados guardados en 'resultados_ordenamiento.csv'</code></pre>
+</div>
+</div>
+</section>
+<section id="análisis-de-los-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-los-resultados">✅ Análisis de los resultados</h2>
+<section id="comparación-de-número-de-comparaciones" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-de-número-de-comparaciones">Comparación de número de comparaciones</h3>
+<p>Analizamos los resultados de las comparaciones realizadas por cada algoritmo:</p>
+<ul>
+<li><strong>Bubblesort</strong>: Realiza mayores comparaciones que los demás algoritmos debido a su complejidad O(n²).</li>
+<li><strong>Quicksort</strong>: Generalmente eficiente en número de comparaciones, con complejidad promedio O(n log n).</li>
+<li><strong>Mergesort</strong>: Consistentemente eficiente en comparaciones, con complejidad O(n log n).</li>
+<li><strong>Heapsort</strong>: También con complejidad O(n log n), pero con un factor constante mayor que Quicksort o Mergesort.</li>
+<li><strong>SkipList</strong>: Estructura probabilística que ofrece complejidad promedio O(n log n) para ordenamiento (Pugh 1990).</li>
+</ul>
+</section>
+<section id="comparación-de-tiempos-de-ejecución" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-de-tiempos-de-ejecución">✅ Comparación de tiempos de ejecución</h3>
+<p>Además del número de comparaciones, el tiempo de ejecución también depende de otros factores como el manejo de memoria y la implementación específica (como vimos en la practica anterior):</p>
+<ul>
+<li><strong>Bubblesort</strong>: Es el más lento para conjuntos de datos grandes.</li>
+<li><strong>Quicksort</strong>: Generalmente el más rápido en la práctica para conjuntos aleatorios (Cormen et al.&nbsp;2022).</li>
+<li><strong>Mergesort</strong>: Estable en tiempos de ejecución independientemente del orden inicial.</li>
+<li><strong>Heapsort</strong>: Generalmente más lento que Quicksort, pero con garantías de peor caso.</li>
+<li><strong>SkipList</strong>: Interesante alternativa con beneficios en ciertos escenarios específicos (Pugh 1990).</li>
+</ul>
+</section>
+<section id="conclusiones" class="level3">
+<h3 class="anchored" data-anchor-id="conclusiones">✅ Conclusiones</h3>
+<p>Los resultados confirman la teoría de complejidad de estos algoritmos. La elección del algoritmo óptimo dependerá del contexto específico:</p>
+<ul>
+<li>Para conjuntos de datos pequeños o casi ordenados, algoritmos simples pueden ser suficientes (Cook y Kim 1980).</li>
+<li>Para conjuntos grandes, los algoritmos O(n log n) son claramente superiores.</li>
+<li>Mergesort es preferible cuando se necesita estabilidad.</li>
+<li>Quicksort suele ser la opción más rápida en promedio para datos aleatorios.</li>
+</ul>
+<p>Los algoritmos adaptativos también pueden jugar un papel importante dependiendo de la estructura de los datos (Estivill-Castro y Wood 1992). El análisis presentado permite tomar decisiones en la selección del método de ordenamiento adecuado según el caso de uso.</p>
+</section>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📚 Referencias</h2>
+<ul>
+<li><p>Cook, Curtis R, y Do Jin Kim. 1980. “Best Sorting Algorithm for Nearly Sorted Lists.” Communications of the ACM 23 (11): 620–24.</p></li>
+<li><p>Cormen, Thomas H, Charles E Leiserson, Ronald L Rivest, y Clifford Stein. 2022. Introduction to Algorithms. MIT Press.</p></li>
+<li><p>Estivill-Castro, Vladmir, y Derick Wood. 1992. “A survey of adaptive sorting algorithms.” ACM Computing Surveys (CSUR) 24 (4): 441–76.</p></li>
+<li><p>Pugh, William. 1990. “Skip Lists: A Probabilistic Alternative to Balanced Trees.” Commun. ACM 33 (6): 668–76. https://doi.org/10.1145/78973.78977.</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

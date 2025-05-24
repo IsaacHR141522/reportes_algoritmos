@@ -1,0 +1,50 @@
+---
+title: "Reportes"
+format: html
+---
+
+## Introducción
+
+Este sitio reúne los reportes de las Unidades 1 a 5 del curso **Análisis de Algoritmos** impartido por el Dr. Eric S. Téllez.  
+Basado en el libro *Curso Introductorio al Análisis de Algoritmos con Julia* y en las prácticas propuestas, el curso combina:
+
+- Una sólida fundamentación teórica de modelos de cómputo y análisis de complejidad.  
+- La exploración de estructuras de datos básicas y su implementación en programación.  
+- El estudio detallado de algoritmos de ordenamiento (BubbleSort, MergeSort, QuickSort, SkipList).  
+- Algoritmos de búsqueda en arreglos ordenados (binaria, B0, B1, B2).  
+- Estrategias para intersección y unión de conjuntos (Melding, Baeza-Yates, Barbay & Kenyon).  
+- Una metodología experimental que incluye conteo de comparaciones, medición de tiempos y visualización gráfica de resultados.
+
+A lo largo de estas cinco unidades, se enfatizó la relación entre la teoría (Θ, O, Ω) y la práctica, mostrando cómo las decisiones de implementación impactan el desempeño.
+
+## Objetivo del sitio
+
+Este sitio tiene como propósito **documentar, organizar y presentar** de forma clara y reproducible todos los reportes de las Unidades 1 a 5:
+
+- Cada reporte incluye su correspondiente **lista de cambios** (véase la pestaña “Notas de Cambios”).  
+- Se mantienen intactos los notebooks originales, enriquecidos con explicaciones y análisis adicionales.  
+- Se facilita al lector la navegación y la comparación de resultados mediante tablas y gráficos interactivos generados con Quarto.
+
+Así, cualquier lector podrá revisar de manera ordenada el avance del curso, comprender los fundamentos de cada tema y replicar los experimentos o adaptarlos a nuevos contextos.
+
+## Resumen de los contenidos
+
+**Unidad 1 – Introducción a Julia y fundamentos**  
+Se presenta Julia como lenguaje de alto rendimiento y dinámico, ideal para análisis experimental. Se cubren sintaxis básica, estructuras de datos (tuplas, arreglos, diccionarios, conjuntos) y control de flujo, sentando las bases para las implementaciones posteriores.
+
+**Unidad 2 – Modelos de cómputo y análisis asintótico**  
+Se exploran los modelos RAM, asintótica Θ, O y Ω, y tipos de análisis (mejor, peor, promedio, amortizado, adaptativo). Se ilustra el crecimiento de funciones (constante, logarítmico, lineal, polinomial, exponencial, factorial) mediante gráficos.
+
+**Unidad 3 – Algoritmos de ordenamiento**  
+Se implementan y comparan BubbleSort, QuickSort, MergeSort, HeapSort y SkipList. Se discuten adaptatividad, uso de memoria y selección de pivote, y se analizan comparaciones y tiempos para distintas perturbaciones de datos.
+
+**Unidad 4 – Algoritmos de búsqueda**  
+Se estudian búsqueda binaria acotada, búsqueda secuencial (B0), búsquedas no acotadas (B1, B2) y SkipList para búsqueda. Se evalúa rendimiento promedio y sensibilidad al desorden, mostrando cómo la estructura de datos influye en la eficiencia.
+
+**Unidad 5 – Intersección y unión de conjuntos**  
+Se aborda la intersección de múltiples conjuntos con algoritmos de Melding, Baeza-Yates, Barbay & Kenyon y variantes adaptativas. Se mide el impacto de la distribución de datos en comparaciones y tiempos, y se proponen estrategias híbridas.
+
+---
+
+Gracias por visitar este repositorio. Cada sección está diseñada para que puedas profundizar en los conceptos, revisar el código y reproducir los experimentos de forma sencilla. ¡Bienvenido a la exploración del análisis de algoritmos en acción!```
+

@@ -1,0 +1,29 @@
+---
+title: "Referencias"
+format: html
+---
+
+# 📚 Referencias
+
+1. **Cook, C. R., & Kim, D. J.** (1980). *Best Sorting Algorithm for Nearly Sorted Lists*.  
+   ACM Digital Library: [https://dl.acm.org/doi/10.1145/359024.359026](https://dl.acm.org/doi/10.1145/359024.359026) :contentReference[oaicite:0]{index=0}  
+   Semantic Scholar: [https://www.semanticscholar.org/paper/Best-sorting-algorithm-for-nearly-sorted-lists-Cook-Kim/86e5cc71d12a48afa3d1f982e4449d66d7790a55](https://www.semanticscholar.org/paper/Best-sorting-algorithm-for-nearly-sorted-lists-Cook-Kim/86e5cc71d12a48afa3d1f982e4449d66d7790a55)
+
+2. **Estivill-Castro, V., & Wood, D.** (1992). *A survey of adaptive sorting algorithms*. ACM Computing Surveys, 24(4), 441–476.  
+   ACM Digital Library: [https://dl.acm.org/doi/10.1145/146370.146381](https://dl.acm.org/doi/10.1145/146370.146381) :contentReference[oaicite:1]{index=1}  
+   Semantic Scholar: [https://www.semanticscholar.org/paper/A-survey-of-adaptive-sorting-algorithms-Estivill-Castro-Wood/2e92b4f8b5f7e6f4b8d2eae28b8e2a9c0df2ae5a](https://www.semanticscholar.org/paper/A-survey-of-adaptive-sorting-algorithms-Estivill-Castro-Wood/2e92b4f8b5f7e6f4b8d2eae28b8e2a9c0df2ae5a)
+
+3. **Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C.** (2022). *Introduction to Algorithms* (4ª ed.). MIT Press.  
+   MIT Press: [https://mitpress.mit.edu/9780262043242/introduction-to-algorithms/](https://mitpress.mit.edu/9780262043242/introduction-to-algorithms/)
+
+4. **Pugh, W.** (1990). *Skip Lists: A Probabilistic Alternative to Balanced Trees*. Communications of the ACM, 33(6), 668–676.  
+   ACM Digital Library: [https://dl.acm.org/doi/10.1145/78973.78977](https://dl.acm.org/doi/10.1145/78973.78977) :contentReference[oaicite:2]{index=2}
+
+5. **Baeza-Yates, R.**, & **Salinger, A.** (2004). *A fast set intersection algorithm for sorted sequences*. En: *Combinatorial Pattern Matching* (LNCS 4007), pp. 400–409. Springer.  
+   SpringerLink: [https://link.springer.com/chapter/10.1007/978-3-540-24611-2_30](https://link.springer.com/chapter/10.1007/978-3-540-24611-2_30)
+
+6. **Barbay, J., & Kenyon, C.** (2002). *Adaptive intersection and t-threshold problems*. En: *Proceedings of the 13th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA)*, pp. 390–399. ACM.  
+   ACM Digital Library: [https://dl.acm.org/doi/10.5555/645394.655596](https://dl.acm.org/doi/10.5555/645394.655596)  
+   Semantic Scholar: [https://www.semanticscholar.org/paper/Adaptive-intersection-and-t%E2%80%90threshold-problems-Barbay-Kenyon/af4a6c8e5f3bb1e4d1a2e427e8c1bf1a0b3db8c8](https://www.semanticscholar.org/paper/Adaptive-intersection-and-t%E2%80%90threshold-problems-Barbay-Kenyon/af4a6c8e5f3bb1e4d1a2e427e8c1bf1a0b3db8c8)
+
+
